@@ -20,6 +20,7 @@ function EmailInput({ onChange, onError }: EmailInputProps) {
   const handleChangeEmailInput = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const { value } = e.target;
     dispatch(setEmail(value));
+    [].filter;
     if (onChange instanceof Function) {
       onChange(value, e);
     }

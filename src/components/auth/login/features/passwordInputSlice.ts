@@ -1,20 +1,33 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { WritableDraft } from 'immer/dist/internal';
 
-interface PasswordInputState {
-  password?: string;
-  passwordConfirm?: string;
+type ValueType = {
+  value?: string;
   isError: boolean;
+  message?: string;
+};
+
+interface PasswordInputState {
+  password: ValueType;
+  passwordConfirm: ValueType;
 }
 
 const initialState: PasswordInputState = {
-  isError: false,
+  password: {
+    isError: false,
+  },
+  passwordConfirm: {
+    isError: false,
+  },
 };
 
 type ReducerType = {
-  setPassword: (state: WritableDraft<PasswordInputState>, action: PayloadAction<Required<PasswordInputState['password']>>) => void;
-  setPasswordConfirm: (state: WritableDraft<PasswordInputState>, action: PayloadAction<Required<PasswordInputState['passwordConfirm']>>) => void;
-  setIsError: (state: WritableDraft<PasswordInputState>, action: PayloadAction<Required<Pick<PasswordInputState, 'isError'>>>) => void;
+  setPassword: (state: WritableDraft<PasswordInputState>, action: PayloadAction<Required<ValueType['value']>>) => void;
+  setPasswordConfirm: (state: WritableDraft<PasswordInputState>, action: PayloadAction<Required<ValueType['value']>>) => void;
+  setIsErrorPassword: (state: WritableDraft<PasswordInputState>, action: PayloadAction<ValueType['isError']>) => void;
+  setIsErrorPasswordConfirm: (state: WritableDraft<PasswordInputState>, action: PayloadAction<ValueType['isError']>) => void;
+  setMessagePassword: (state: WritableDraft<PasswordInputState>, action: PayloadAction<Required<ValueType['message']>>) => void;
+  setMessageConfirm: (state: WritableDraft<PasswordInputState>, action: PayloadAction<Required<ValueType['message']>>) => void;
 };
 
 export const passwordInputSlice = createSlice<PasswordInputState, ReducerType, 'passwordInput'>({
@@ -22,18 +35,26 @@ export const passwordInputSlice = createSlice<PasswordInputState, ReducerType, '
   initialState,
   reducers: {
     setPassword: (state, action) => {
-      state.password = action.payload;
+      state.password.value = action.payload;
     },
     setPasswordConfirm: (state, action) => {
-      state.passwordConfirm = action.payload;
+      state.passwordConfirm.value = action.payload;
     },
-    setIsError: (state, action) => {
-      const { isError } = action.payload;
-      state.isError = isError;
+    setIsErrorPassword: (state, action) => {
+      state.password.isError = action.payload;
+    },
+    setIsErrorPasswordConfirm(state, action) {
+      state.passwordConfirm.isError = action.payload;
+    },
+    setMessagePassword: (state, action) => {
+      state.password.message = action.payload;
+    },
+    setMessageConfirm: (state, action) => {
+      state.passwordConfirm.message = action.payload;
     },
   },
 });
 
-export const { setPassword, setPasswordConfirm, setIsError } = passwordInputSlice.actions;
+export const { setPassword, setPasswordConfirm, setIsErrorPassword, setIsErrorPasswordConfirm, setMessagePassword, setMessageConfirm } = passwordInputSlice.actions;
 
 export default passwordInputSlice.reducer;

@@ -1,15 +1,20 @@
 import React from 'react';
-import { RouteObject, useRoutes } from "react-router";
-import AuthPage from '../pages/auth/AuthPage';
+import { RouteObject, useRoutes } from 'react-router';
+import LoginPage from '../pages/auth/LoginPage';
 
 const routes: RouteObject[] = [
   {
     path: '/auth',
-    element: <AuthPage />
-  }
+    // element: <AuthPage />
+    children: [
+      {
+        path: 'login',
+        element: <LoginPage />,
+      },
+    ],
+  },
 ];
-
-function PageRouters() { 
+function PageRouters() {
   const elements = useRoutes(routes);
   return <>{elements}</>;
 }

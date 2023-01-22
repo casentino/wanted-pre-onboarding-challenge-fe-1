@@ -3,10 +3,15 @@ import { Grid } from '@mui/material';
 import LoginStoreProvider from '../../components/auth/login/LoginStoreProvider';
 import LoginArea from '../../components/auth/LoginArea';
 
-function AuthPage() {
+function LoginPage() {
   return (
     <LoginStoreProvider>
-      <Grid container direction="row" alignItems="center" justifyContent="center">
+      <Grid
+        container
+        direction="row"
+        alignItems="center"
+        justifyContent="center"
+      >
         <Grid item>
           <LoginArea />
         </Grid>
@@ -14,4 +19,4 @@ function AuthPage() {
     </LoginStoreProvider>
   );
 }
-export default AuthPage;
+export default LoginPage;
